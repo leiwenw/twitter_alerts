@@ -38,12 +38,13 @@ class StdOutListener(StreamListener):
         
         if 'text' in data_json:
             print data_json['text']
+            user = data_json['user']['screen_name']
             str = data_json['text']
             
             # If-statement after search() tests if it succeeded
             if find_words(str):                     
                 print 'Found is true'
-                message = twilioCli.messages.create(body=str, from_=myTwilioNumber, to=myCellPhone)
+                message = twilioCli.messages.create(body='@' + user + ': ' + str, from_=myTwilioNumber, to=myCellPhone)
             else:
                 print 'Found is false'
         print ""
